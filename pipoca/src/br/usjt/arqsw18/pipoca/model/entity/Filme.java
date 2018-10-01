@@ -2,24 +2,40 @@ package br.usjt.arqsw18.pipoca.model.entity;
 
 import java.util.Date;
 
-import javax.validation.constraints.Min;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+
+@Entity
 public class Filme {
-	@NotNull 
-	@Min(value=1)
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
 	@NotNull
 	@Size(min=2, max=100, message="Tamanho entre 2 e 100 caracteres")
 	private String titulo;
+	
 	@NotNull
 	@Size(min=20, max=4000, message="Tamanho entre 20 e 4000 caracteres")
 	private String descricao;
 	private double popularidade;
+	
+	@Column(name="data_lancamento")
 	private Date dataLancamento;
 	private String posterPath;
 	private String diretor;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_genero")
 	private Genero genero;
 	
 	public int getId() {
